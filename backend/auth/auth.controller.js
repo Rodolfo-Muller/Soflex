@@ -1,8 +1,11 @@
 const User = require('./auth.dao');
+//Encryp Password
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const SECRET_KEY = 'secretkey123456';
 
+
+//-------------------User Create----------------------
 exports.createUser = (req, res, next) => {
   const newUser = {
     email: req.body.email,
@@ -13,7 +16,9 @@ exports.createUser = (req, res, next) => {
   User.create(newUser, (err, user) => {
     if (err && err.code === 11000) return res.status(409).send('Email already exists');
     if (err) return res.status(500).send('Server error');
+      //time expires Token
     const expiresIn = 24 * 60 * 60;
+      //Generate token by Id
     const accessToken = jwt.sign({ id: user.id },
       SECRET_KEY, {
         expiresIn: expiresIn
@@ -29,6 +34,7 @@ exports.createUser = (req, res, next) => {
   });
 }
 
+//-------------------------Log In-------------------------------
 exports.loginUser = (req, res, next) => {
   const userData = {
     email: req.body.email,
@@ -59,7 +65,19 @@ exports.loginUser = (req, res, next) => {
       }
     }
   });
-}
+};
+
+
+ //-------------------------------------Bring Users------------------------
+ exports.getUsers = (req, res) => {
+  User.find(function (err, users) {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    res.status(200).send({ users });
+  });
+};
 
 
 
