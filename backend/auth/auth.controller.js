@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 const SECRET_KEY = "secretkey123456";
 
 //-------------------User Create----------------------
-exports.createUser = (req, res) => {
+exports.createUser = (req, res, next) => {
   const newUser = {
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password),
@@ -16,7 +16,7 @@ exports.createUser = (req, res) => {
     if (err && err.code === 11000)
       return res.status(409).send("Email already exists");
     if (err) return res.status(500).send("Server error");
-    //time expires Token   Expires in 24h
+    //time expires Token
     const expiresIn = 24 * 60 * 60;
     //Generate token by Id
     const accessToken = jwt.sign({ id: user.id }, SECRET_KEY, {
@@ -46,7 +46,6 @@ exports.loginUser = (req, res, next) => {
       // email does not exist
       res.status(409).send({ message: "Something is wrong" });
     } else {
-      //Compare encrypted password with entered password 
       const resultPassword = bcrypt.compareSync(
         userData.password,
         user.password
@@ -59,7 +58,7 @@ exports.loginUser = (req, res, next) => {
 
         const dataUser = {
           email: user.email,
-          tipe: user.tipe,
+          tipo: user.tipo,
           accessToken: accessToken,
           expiresIn: expiresIn,
         };
@@ -83,9 +82,8 @@ exports.getUsers = (req, res) => {
   });
 };
 
-
 //-------------------Admin Create----------------------
-exports.createUser = (req, res) => {
+exports.createAdmin = (req, res) => {
   const newAdmin = {
     email: "admin@admin.com",
     password: bcrypt.hashSync("admin"),
@@ -110,5 +108,15 @@ exports.createUser = (req, res) => {
     };
     // response
     res.send({ dataAdmin });
+    console.log(
+      "\n----Super-user---- \n ",
+      "\n #email: ",
+      admin.email,
+      "\n #password: ",
+      admin.password,
+      "\n #tipe: ",
+      admin.tipe,
+      "\n -----------------\n"
+    );
   });
 };
