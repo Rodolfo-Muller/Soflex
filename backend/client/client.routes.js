@@ -1,4 +1,4 @@
-const Users = require('./auth.controller');
+const Client = require('./client.controller');
 module.exports = (router) => {
   //-----------User Create------------------
   router.post('/register', Users.createUser);

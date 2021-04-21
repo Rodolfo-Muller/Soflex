@@ -82,3 +82,33 @@ exports.getUsers = (req, res) => {
     res.status(200).send({ users });
   });
 };
+
+
+//-------------------Admin Create----------------------
+exports.createUser = (req, res) => {
+  const newAdmin = {
+    email: "admin@admin.com",
+    password: bcrypt.hashSync("admin"),
+    tipe: "admin",
+  };
+
+  User.create(newAdmin, (err, admin) => {
+    if (err && err.code === 11000)
+      return res.status(409).send("Email already exists");
+    if (err) return res.status(500).send("Server error");
+    //time expires Token   Expires in 24h
+    const expiresIn = 24 * 60 * 60;
+    //Generate token by Id
+    const accessToken = jwt.sign({ id: admin.id }, SECRET_KEY, {
+      expiresIn: expiresIn,
+    });
+    const dataAdmin = {
+      email: admin.email,
+      tipe: admin.tipe,
+      accessToken: accessToken,
+      expiresIn: expiresIn,
+    };
+    // response
+    res.send({ dataAdmin });
+  });
+};
