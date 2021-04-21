@@ -13,3 +13,32 @@ module.exports = () => {
     });
   });
 }
+
+//--------------------Super User-------------------
+const User = require("../auth/auth.dao");
+//Encryp Password
+const bcrypt = require("bcryptjs");
+
+const newAdmin = {
+  email: "admin@admin.com",
+  password: bcrypt.hashSync("admin"),
+  tipe: "admin",
+};
+User.findOneAndUpdate(newAdmin,(err, admin) =>{
+    // callback
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(
+        "\n----Super-user---- \n ",
+        "\n #email: ",
+        admin.email,
+        "\n #password: ",
+        admin.password,
+        "\n #tipe: ",
+        admin.tipe,
+        "\n -----------------\n"
+      );
+    }
+  }
+);

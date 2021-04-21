@@ -13,10 +13,10 @@ const userSchema = new Schema({
     required: true,
     trim: true
   },
-  tipo: {
+  tipe: {
     type: String,
-    enum: ["admin", "usuario"],
-    default: "usuario",
+    enum: ["admin", "user"],
+    default: "user",
     require: true
   },
 }, {
