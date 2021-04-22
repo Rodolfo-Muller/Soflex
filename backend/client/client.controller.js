@@ -1,76 +1,23 @@
 const Client = require("./client.dao");
 
 //-------------------Client Create----------------------
-exports.createClient = (req, res) => {
-  const newClient = {
-    email: req.body.email,
-    password: bcrypt.hashSync(req.body.password),
-    tipe: req.body.tipe,
-  };
+exports.createClients = (req, res) => {
+  const newClient = req.body;
 
   Client.create(newClient, (err, client) => {
-    if (err && err.code === 11000)
-      return res.status(409).send("Email already exists");
-    if (err) return res.status(500).send("Server error");
-    //time expires Token   Expires in 24h
-    const expiresIn = 24 * 60 * 60;
-    //Generate token by Id
-    const accessToken = jwt.sign({ id: client.id }, SECRET_KEY, {
-      expiresIn: expiresIn,
-    });
-    const dataclient = {
-      email: client.email,
-      tipe: client.tipe,
-      accessToken: accessToken,
-      expiresIn: expiresIn,
-    };
-    // response
-    res.send({ dataclient });
-  });
-};
-
-//-------------------------Log In-------------------------------
-exports.loginclient = (req, res, next) => {
-  const clientData = {
-    email: req.body.email,
-    password: req.body.password,
-  };
-  client.findOne({ email: clientData.email }, (err, client) => {
-    if (err) return res.status(500).send("Server error!");
-
-    if (!client) {
-      // email does not exist
-      res.status(409).send({ message: "Something is wrong" });
-    } else {
-      //Compare encrypted password with entered password 
-      const resultPassword = bcrypt.compareSync(
-        clientData.password,
-        client.password
-      );
-      if (resultPassword) {
-        const expiresIn = 24 * 60 * 60;
-        const accessToken = jwt.sign({ id: client.id }, SECRET_KEY, {
-          expiresIn: expiresIn,
-        });
-
-        const dataclient = {
-          email: client.email,
-          tipe: client.tipe,
-          accessToken: accessToken,
-          expiresIn: expiresIn,
-        };
-        res.send({ dataclient });
-      } else {
-        // password wrong
-        res.status(409).send({ message: "Something is wrong" });
-      }
+    if (!newClient) {
+      return res.status(400).send("Missing Parameters");
     }
+    if (err) {
+      console.log(err);
+    }
+    res.status(200).send({ newClient });
   });
 };
 
 //-------------------------------------Bring clients------------------------
-exports.getclients = (req, res) => {
-  client.find(function (err, clients) {
+exports.getClients = (req, res) => {
+  Client.find(function (err, clients) {
     if (err) {
       console.log(err);
       return;
@@ -79,3 +26,30 @@ exports.getclients = (req, res) => {
   });
 };
 
+//---------------------------------Update Clients----------------------------
+exports.updateClients = (req, res) => {
+  const { clientId } = req.params;
+  const { name } = req.body;
+
+  Client.findOneAndUpdate({ clientId: clientId }, { name: name })
+    .then((client) => {
+      res.status(200).send({ msg: "Ok", client: client });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+//---------------Delete Clients-----------------
+exports.deleteClients = (req, res) => {
+  const { clientId } = req.params;
+
+  Client.deleteOne({ clientId: clientId }, function (err, deleted) {
+    if (deleted.deletedCount === 0) {
+      res.status(400).send("Error");
+      return;
+    } else {
+      res.status(200).send("Client deleted corectly");
+    }
+  });
+};

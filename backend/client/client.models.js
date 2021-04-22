@@ -19,7 +19,7 @@ const clientSchema = new Schema({
 });
 
 //configuración Auto-Incremental ID
-clienteSchema.plugin(autoIncrement.plugin, {
+clientSchema.plugin(autoIncrement.plugin, {
   model: "Client",
   field: "clientId",
   startAt: 1,
