@@ -1,7 +1,7 @@
-export interface OrderI {
-    id: number,
-    product: string,
-    quantity: number,
-    price:number,
+export class Order {
+    orderId: number;
+    product: string;
+    quantity: number;
+    price:number;
   }
   

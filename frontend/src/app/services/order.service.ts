@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-
-import { Order} from "../models/order";
+import {Order} from "../models/order";
 
 @Injectable({
   providedIn: "root",
@@ -9,7 +8,7 @@ import { Order} from "../models/order";
 export class OrderService {
   selectedOrder: Order;
   order: Order[];
-  readonly URL_API = "http://localhost:3000/api/order";
+  readonly URL_API = "http://localhost:3000/order";
 
   constructor(private http: HttpClient) {
     this.selectedOrder = new Order();
@@ -19,7 +18,7 @@ export class OrderService {
     return this.http.post(this.URL_API, order);
   }
 
-  getOrder() {
+  getOrders() {
     return this.http.get<Order[]>(this.URL_API);
   }
 

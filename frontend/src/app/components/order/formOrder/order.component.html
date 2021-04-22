@@ -1,17 +1,65 @@
-<form class="row g-3">
-  <div class="col-md-6">
-    <label for="inputEmail4" class="form-label">ProductoId</label>
-    <input type="text" class="form-control" id="productId">
+<div class="row">
+  <!-- FORM -->
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-body p-4">
+
+        <!-- FORM -->
+        <form #orderForm="ngForm" (ngSubmit)="addOrder(orderForm)">
+          <!-- THE Id's Employee -->
+          <input type="hidden" name="orderId" #_id="ngModel" [(ngModel)]="orderService.selectedOrder.orderId">
+
+          <div class="form-group">
+            <input type="text" name="product" #name="ngModel" [(ngModel)]="orderService.selectedOrder.product"
+              placeholder="Enter your product" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <div class="input-field col-s12">
+              <input type="text" name="quantity" #name="ngModel" [(ngModel)]="orderService.selectedOrder.quantity"
+                placeholder="Enter your quantity" class="form-control">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input type="text" name="Price" #name="ngModel" [(ngModel)]="orderService.selectedOrder.price"
+              placeholder="Enter price" class="form-control">
+          </div>
+
+          <button class="btn btn-primary mr-2" (click)="resetForm(orderForm)">Clean</button>
+          <button class="btn btn-secondary">Save</button>
+      </form>
+    </div>
   </div>
-  <div class="col-md-6">
-    <label for="inputPassword4" class="form-label">Cantidad</label>
-    <input type="text" class="form-control" id="quantity">
-  </div>
-  <div class="col-12">
-    <label for="inputAddress" class="form-label">Precio</label>
-    <input type="text" class="form-control" id="price" placeholder="$">
-  </div>
-  <div class="col-12">
-    <button type="submit" class="btn btn-primary">Agregar Item</button>
-  </div>
-</form>
+</div>
+
+<!-- TABLE -->
+<table class="table table-dark table-hover">
+  <thead>
+    <tr *ngForm="let order of orderService.orders">
+      <th scope="col">PedidoId</th>
+      <th scope="col">Producto</th>
+      <th scope="col">Cantidad</th>
+      <th scope="col">Precio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr >
+      <th scope="row">1</th>
+      <td>{{order.pedidoId}}</td>
+      <td>{{order.product}}</td>
+      <td>{{order.quantity}}</td>
+      <td>{{order.price}}</td>
+        <td>
+          <a (click)="editEmployee(employee)" class="btn btn-secondary btn-sm">
+            <i class="material-icons">edit</i>
+          </a>
+          <a (click)="deleteEmployee(employee._id, employeeForm)" class="btn btn-danger btn-sm">
+            <i class="material-icons">delete</i>
+          </a>
+        </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
