@@ -1,65 +1,184 @@
-<div class="row">
-  <!-- FORM -->
-  <div class="col-md-4">
-    <div class="card">
-      <div class="card-body p-4">
-
-        <!-- FORM -->
-        <form #orderForm="ngForm" (ngSubmit)="addOrder(orderForm)">
-          <!-- THE Id's Employee -->
-          <input type="hidden" name="orderId" #_id="ngModel" [(ngModel)]="orderService.selectedOrder.orderId">
-
-          <div class="form-group">
-            <input type="text" name="product" #name="ngModel" [(ngModel)]="orderService.selectedOrder.product"
-              placeholder="Enter your product" class="form-control">
-          </div>
-
-          <div class="form-group">
-            <div class="input-field col-s12">
-              <input type="text" name="quantity" #name="ngModel" [(ngModel)]="orderService.selectedOrder.quantity"
-                placeholder="Enter your quantity" class="form-control">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <input type="text" name="Price" #name="ngModel" [(ngModel)]="orderService.selectedOrder.price"
-              placeholder="Enter price" class="form-control">
-          </div>
-
-          <button class="btn btn-primary mr-2" (click)="resetForm(orderForm)">Clean</button>
-          <button class="btn btn-secondary">Save</button>
-      </form>
+<!-- <p>
+  <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+   Create New Order
+  </button>
+</p>
+<div class="collapse" id="collapseExample">
+  <div class="card card-body bg-dark">
+    
+<div class=" ">
+  <div class="container-sm" >
+    <div class="text-white ">
+      <h1>Create Order</h1>
     </div>
+    <form #frmOrder="ngForm" (ngSubmit)="addOrder(frmOrder)">
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="input-product">Producto:</span>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Name"
+        name="product" #product="ngModel"
+        [(ngModel)]="orderService.selectedOrder.product"
+      />
+    </div>
+
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="input-quantity">Cantidad:</span>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="0"
+        name="quantity" #quantity="ngModel"
+        [(ngModel)]="orderService.selectedOrder.quantity"
+      />
+    </div>
+
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="input-price">Precio $:</span>
+      <input
+        type="text"
+        class="form-control"
+        name="price" #product="ngModel"
+        [(ngModel)]="orderService.selectedOrder.price"
+      />
+    </div>
+
+    <div
+      class="btn-toolbar mb-5" role="toolbar"
+      aria-label="Basic radio toggle button group"
+    >
+      <div class="btn-group me-3 ">
+        <input
+          type="submit"
+          class="btn-check"
+          name="btnsave"
+          id="btnradio1"
+          autocomplete="off"
+          checked
+        />
+        <label class="btn btn-outline-primary" for="btnradio1">Save</label>
+      </div>
+      <div class="btn-group">
+        <input
+          type="cancel"
+          class="btn-check"
+          name="btncancel"
+          id="btnradio2"
+          autocomplete="off"
+        />
+        <label class="btn btn-outline-danger" for="btnradio2">Cancel</label>
+      </div>
+    </div>
+  </form>
   </div>
 </div>
+  </div>
+</div> -->
+<!-- Button trigger modal -->
+<button
+  type="button"
+  class="btn btn-primary"
+  data-bs-toggle="modal"
+  data-bs-target="#exampleModal"
+>
+  Create New Order
+</button>
 
-<!-- TABLE -->
-<table class="table table-dark table-hover">
-  <thead>
-    <tr *ngForm="let order of orderService.orders">
-      <th scope="col">PedidoId</th>
-      <th scope="col">Producto</th>
-      <th scope="col">Cantidad</th>
-      <th scope="col">Precio</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr >
-      <th scope="row">1</th>
-      <td>{{order.pedidoId}}</td>
-      <td>{{order.product}}</td>
-      <td>{{order.quantity}}</td>
-      <td>{{order.price}}</td>
-        <td>
-          <a (click)="editEmployee(employee)" class="btn btn-secondary btn-sm">
-            <i class="material-icons">edit</i>
-          </a>
-          <a (click)="deleteEmployee(employee._id, employeeForm)" class="btn btn-danger btn-sm">
-            <i class="material-icons">delete</i>
-          </a>
-        </td>
-    </tr>
-  </tbody>
-</table>
-</div>
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content bg-dark">
+      <div class="modal-header text-white">
+        <h3 class="modal-title" id="exampleModalLabel">Create New Order</h3>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <!--Form-->
+        <div class="container-fluid">
+          <form #frmOrder="ngForm" (ngSubmit)="addOrder(frmOrder)">
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="input-product">Producto:</span>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Name"
+                name="product"
+                #product="ngModel"
+                [(ngModel)]="orderService.selectedOrder.product"
+              />
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="input-quantity"
+                >Cantidad:</span
+              >
+              <input
+                type="text"
+                class="form-control"
+                placeholder="0"
+                name="quantity"
+                #quantity="ngModel"
+                [(ngModel)]="orderService.selectedOrder.quantity"
+              />
+            </div>
+
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="input-price">Precio $:</span>
+              <input
+                type="text"
+                class="form-control"
+                name="price"
+                #product="ngModel"
+                [(ngModel)]="orderService.selectedOrder.price"
+              />
+            </div>
+
+            <div
+              class="modal-footer"
+              role="toolbar"
+              aria-label="Basic radio toggle button group"
+            >
+              <div class="btn-group me-3">
+                <input
+                  type="submit"
+                  class="btn-check"
+                  name="btnsave"
+                  id="btnradio1"
+                  autocomplete="off"
+                  checked
+                />
+                <label class="btn btn-outline-primary" for="btnradio1"
+                  >Save</label
+                >
+              </div>
+              <div class="btn-group">
+                <input
+                  type="cancel"
+                  class="btn-check"
+                  name="btncancel"
+                  id="btnradio2"
+                  autocomplete="off"
+                  data-bs-dismiss="modal"
+                />
+                <label class="btn btn-outline-danger" for="btnradio2"
+                  >Cancel</label
+                >
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

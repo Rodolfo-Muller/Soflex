@@ -7,7 +7,7 @@ import {Order} from "../models/order";
 })
 export class OrderService {
   selectedOrder: Order;
-  order: Order[];
+  orders: Order[];
   readonly URL_API = "http://localhost:3000/order";
 
   constructor(private http: HttpClient) {
@@ -15,11 +15,11 @@ export class OrderService {
   }
 
   postOrder(order: Order) {
-    return this.http.post(this.URL_API, order);
+    return this.http.post(this.URL_API+'/create', order);
   }
 
   getOrders() {
-    return this.http.get<Order[]>(this.URL_API);
+    return this.http.get<Order[]>(this.URL_API+'/all');
   }
 
   putOrder(order: Order) {

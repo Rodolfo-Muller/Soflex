@@ -32,7 +32,8 @@ export class OrderComponent implements OnInit {
 
   getOrders() {
     this.orderService.getOrders().subscribe((res) => {
-      this.orderService.order = res;
+      this.orderService.orders = res;
+      console.log(res)
     });
   }
 
