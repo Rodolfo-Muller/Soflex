@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ListOrderComponent } from './components/order/list-order/list-order.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ListOrderComponent
   ],
   imports: [
     BrowserModule,
