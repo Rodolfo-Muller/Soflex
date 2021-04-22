@@ -19,7 +19,7 @@ exports.createUser = (req, res, next) => {
     //time expires Token
     const expiresIn = 24 * 60 * 60;
     //Generate token by Id
-    const accessToken = jwt.sign({ id: user.id }, SECRET_KEY, {
+    const accessToken = jwt.sign({ id: user.userId }, SECRET_KEY, {
       expiresIn: expiresIn,
     });
     const dataUser = {
@@ -52,7 +52,7 @@ exports.loginUser = (req, res, next) => {
       );
       if (resultPassword) {
         const expiresIn = 24 * 60 * 60;
-        const accessToken = jwt.sign({ id: user.id }, SECRET_KEY, {
+        const accessToken = jwt.sign({ id: user.userId }, SECRET_KEY, {
           expiresIn: expiresIn,
         });
 
@@ -97,7 +97,7 @@ exports.createAdmin = (req, res) => {
     //time expires Token   Expires in 24h
     const expiresIn = 24 * 60 * 60;
     //Generate token by Id
-    const accessToken = jwt.sign({ id: admin.id }, SECRET_KEY, {
+    const accessToken = jwt.sign({ id: admin.userId }, SECRET_KEY, {
       expiresIn: expiresIn,
     });
     const dataAdmin = {

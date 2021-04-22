@@ -5,12 +5,13 @@ exports.createClients = (req, res) => {
   const newClient = req.body;
 
   Client.create(newClient, (err, client) => {
-    if (!newClient){
-        return res.status(400).send("Missing Parameters")
-    }if(err){
-        console.log(err)
+    if (!newClient) {
+      return res.status(400).send("Missing Parameters");
     }
-    res.status(200).send({newClient});
+    if (err) {
+      console.log(err);
+    }
+    res.status(200).send({ newClient });
   });
 };
 
@@ -26,14 +27,29 @@ exports.getClients = (req, res) => {
 };
 
 //---------------------------------Update Clients----------------------------
-exports.updateClients=(req,res)=>{
-    const client = req.params;
+exports.updateClients = (req, res) => {
+  const { clientId } = req.params;
+  const { name } = req.body;
 
-    Client.update(client)
-    .then(() => {
-        res.status(200).send({ msg: "Ok" });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-}
+  Client.findOneAndUpdate({ clientId: clientId }, { name: name })
+    .then((client) => {
+      res.status(200).send({ msg: "Ok", client: client });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+//---------------Delete Clients-----------------
+exports.deleteClients = (req, res) => {
+  const { clientId } = req.params;
+
+  Client.deleteOne({ clientId: clientId }, function (err, deleted) {
+    if (deleted.deletedCount === 0) {
+      res.status(400).send("Error");
+      return;
+    } else {
+      res.status(200).send("Client deleted corectly");
+    }
+  });
+};

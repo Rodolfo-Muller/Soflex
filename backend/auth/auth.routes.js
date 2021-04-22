@@ -7,5 +7,5 @@ module.exports = (router) => {
   //----------- User Login-------------------
   router.post('/login', Users.loginUser);
   //------------ Bring Users-----------------
-  router.get ('/all', Users.getUsers);
+  router.get ('/users/all', Users.getUsers);
 }
