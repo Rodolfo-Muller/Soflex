@@ -1,8 +1,18 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 mongoose.set("useCreateIndex", true);
-const userSchema = new Schema(
+
+//---------Plugin generate Id--------------
+var autoIncrement = require("mongoose-auto-increment");
+autoIncrement.initialize(mongoose.connection); 
+
+const userSchema = new Schema(  
   {
+    userId: {
+      type: Number,
+      default: 0,
+      unique: true,
+    },
     email: {
       type: String,
       required: true,
@@ -26,5 +36,12 @@ const userSchema = new Schema(
     timestamps: true,
   }
 );
+//configuración Auto-Incremental ID
+userSchema.plugin(autoIncrement.plugin, {
+  model: "User",
+  field: "userId",
+  startAt: 1,
+  incrementBy: 1,
+});
 
 module.exports = userSchema;
