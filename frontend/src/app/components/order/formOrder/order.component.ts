@@ -1,17 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import {OrderService} from '../../../services/order.service';
-import {Order} from "../../../models/order";
+import { Component, OnInit } from "@angular/core";
+import { OrderService } from "../../../services/order.service";
+import { Order } from "../../../models/order";
 import { NgForm } from "@angular/forms";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-order',
-  templateUrl: './order.component.html',
-  styleUrls: ['./order.component.css'],
+  selector: "app-order",
+  templateUrl: "./order.component.html",
+  styleUrls: ["./order.component.css"],
   providers: [OrderService],
 })
 export class OrderComponent implements OnInit {
-  private orders:Order[];
-  constructor(private orderService: OrderService) {}
+  private orders: Order[];
+  constructor(private orderService: OrderService, private router:Router) {}
 
   ngOnInit() {
     this.getOrders();
@@ -33,13 +34,13 @@ export class OrderComponent implements OnInit {
 
   getOrders() {
     this.orderService.getOrders().subscribe((res) => {
-      this.orders = res['order'];
-      console.log(res)
+      this.orders = res["order"];
     });
   }
 
-  editOrder(order: Order) {
-    this.orderService.selectedOrder = order;
+  editOrder(order) {
+    this.orderService.selectedOrder = order; 
+    this.router.navigate(['/order/crud'])
   }
 
   deleteOrder(orderId: string, form: NgForm) {
@@ -57,5 +58,4 @@ export class OrderComponent implements OnInit {
       this.orderService.selectedOrder = new Order();
     }
   }
-
 }
