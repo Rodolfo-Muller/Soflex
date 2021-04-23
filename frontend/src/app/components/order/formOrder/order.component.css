@@ -1,5 +1,12 @@
-:host {
+.container-xxl{
+  width: 80%;
+  height: 100%;
+  margin: 10px;
+}
+.container-sm {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    margin-top:30px;
+  }
+.btn{
+margin-left: 10px;
   }

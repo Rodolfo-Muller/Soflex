@@ -10,6 +10,7 @@ import { NgForm } from "@angular/forms";
   providers: [OrderService],
 })
 export class OrderComponent implements OnInit {
+  private orders:Order[];
   constructor(private orderService: OrderService) {}
 
   ngOnInit() {
@@ -32,7 +33,7 @@ export class OrderComponent implements OnInit {
 
   getOrders() {
     this.orderService.getOrders().subscribe((res) => {
-      this.orderService.orders = res;
+      this.orders = res['order'];
       console.log(res)
     });
   }
