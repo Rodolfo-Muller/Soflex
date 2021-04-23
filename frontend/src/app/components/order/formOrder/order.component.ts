@@ -12,7 +12,7 @@ import { Router } from "@angular/router";
 })
 export class OrderComponent implements OnInit {
   private orders: Order[];
-  constructor(private orderService: OrderService, private router:Router) {}
+  constructor(private orderService: OrderService, private router: Router) {}
 
   ngOnInit() {
     this.getOrders();
@@ -39,19 +39,21 @@ export class OrderComponent implements OnInit {
   }
 
   editOrder(order) {
-    this.orderService.selectedOrder = order; 
-    this.router.navigate(['/order/crud'])
+    this.orderService.selectedOrder = order;
+    this.router.navigate(["/order/crud"]);
   }
 
-  deleteOrder(orderId: string, form: NgForm) {
+  deleteOrder(order, form: NgForm) {
     if (confirm("Are you sure you want to delete it?")) {
-      this.orderService.deleteOrder(orderId).subscribe((res) => {
-        this.getOrders();
-        this.resetForm(form);
+      this.orderService.deleteOrder(order.orderId).subscribe((res) => {
+        this.orders.splice(this.orders.indexOf(order), 1);
+        this.refresh;
       });
     }
   }
-
+  refresh(): void {
+    window.location.reload();
+}
   resetForm(form?: NgForm) {
     if (form) {
       form.reset();
