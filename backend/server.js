@@ -2,6 +2,7 @@
 //Import Routes
 const authRoutes = require("./auth/auth.routes");
 const clientRoutes = require("./client/client.routes");
+const orderRoutes = require("./order/order.routes")
 
 //Import Dependencies
 const cors = require("cors");
@@ -28,6 +29,7 @@ app.use("/api", router);
 //Routes
 authRoutes(router);
 clientRoutes(router);
+orderRoutes(router);
 router.get("/", (req, res) => {
   res.send("Hello from home");
 });
