@@ -44,6 +44,42 @@
                   [(ngModel)]="orderService.selectedOrder.client"
                 />
               </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="input-product">Producto:</span>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Name"
+                  name="product"
+                  #product="ngModel"
+                  [(ngModel)]="orderService.selectedOrder.product"
+                />
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="input-quantity"
+                  >Cantidad:</span
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="0"
+                  name="quantity"
+                  #quantity="ngModel"
+                  [(ngModel)]="orderService.selectedOrder.quantity"
+                />
+              </div>
+  
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="input-price">Precio $:</span>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="price"
+                  #product="ngModel"
+                  [(ngModel)]="orderService.selectedOrder.price"
+                />
+              </div>
+  
               <div
                 class="modal-footer"
                 role="toolbar"
@@ -92,6 +128,7 @@
             <th>PedidoId</th>
             <th>Fecha</th>
             <th>Cliente</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -139,7 +176,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Editar Orden</h5>
         <button
           type="button"
           class="btn-close"
@@ -151,6 +188,17 @@
         <!--Form-->
         <div class="container-fluid">
           <form #frmOrder="ngForm" (ngSubmit)="editOrder(frmOrder)">
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="input-client">Cliente:</span>
+              <input
+                type="text"
+                class="form-control"
+                placeholder=""
+                name="client"
+                #client="ngModel"
+                [(ngModel)]="orderService.selectedOrder.client"
+              />
+            </div>
             <div class="input-group mb-3">
               <span class="input-group-text" id="input-product">Producto:</span>
               <input
