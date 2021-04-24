@@ -5,7 +5,8 @@ import { Routes, RouterModule } from "@angular/router";
 const routes: Routes = [
   { path: "", redirectTo: "/", pathMatch: "full" },
   { path: "auth", loadChildren: "./components/auth/auth.module#AuthModule" },
-  {path: "order", loadChildren: "./components/order/order.module#OrderModule"}
+  {path: "order", loadChildren: "./components/order/order.module#OrderModule"},
+  {path: "product", loadChildren: "./components/product/product/"}
 ];
 
 @NgModule({
