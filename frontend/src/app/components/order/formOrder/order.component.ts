@@ -34,7 +34,7 @@ export class OrderComponent implements OnInit {
 
   getOrders() {
     this.orderService.getOrders().subscribe((res) => {
-      this.orders = res["order"];
+      this.orders = res;
     });
   }
 
@@ -47,7 +47,9 @@ export class OrderComponent implements OnInit {
     if (confirm("Are you sure you want to delete it?")) {
       this.orderService.deleteOrder(order.orderId).subscribe((res) => {
         this.orders.splice(this.orders.indexOf(order), 1);
-        this.refresh;
+      },
+      err=>{
+
       });
     }
   }

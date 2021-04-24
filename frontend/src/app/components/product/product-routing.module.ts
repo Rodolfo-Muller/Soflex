@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ProductComponent } from './product.component';
 
 const routes: Routes = [
-  { path: '', component: ProductComponent },
+  { path: 'crud', component: ProductComponent },
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
