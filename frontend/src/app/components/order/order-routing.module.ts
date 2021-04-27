@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { OrderComponent } from './formOrder/order.component';
+import { OrderComponent } from './order.component';
 
 const routes: Routes = [
-  { path: 'crud', component: OrderComponent },
+  { path: 'grillaPedidos', component: OrderComponent },
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],

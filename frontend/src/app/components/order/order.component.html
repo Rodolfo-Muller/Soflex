@@ -1,0 +1,50 @@
+<div class="container-fluid d-flex justify-content-center">
+<!-- Grilla de Pedidos -->
+<div class="card bg-dark">
+  <div class="card-body">
+    <h4 class="card-title text-white">Grilla de Pedidos</h4>
+    <a href= "http://localhost:4200/pedidoDetalle/formulario"><button  class="btn btn-primary" type="button"> Crear Nuevo Pedido</button></a>
+    <table class="table table-dark table-hover">
+      <thead>
+        <tr>
+          <th>PedidoId</th>
+          <th>Fecha</th>
+          <th>Cliente</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders?.orders">
+          <td>{{ order.orderId }}</td>
+          <td>{{ order.createdAt | date:'dd-MM-yyyy'}}</td>
+          <td>{{ order.client }}</td>
+          <td>
+            <div class="btn-group me-3">
+              <input type="cancel" class="btn-check" autocomplete="off" />
+              <label
+                class="btn btn-outline-danger"
+                (click)="deleteOrder(order)"
+                for="btnradio2"
+                >Eliminar</label
+              >
+            </div>
+
+            <div class="btn-group">
+              <input type="cancel" class="btn-check" autocomplete="off" />
+              <label
+                class="btn btn-outline-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                (click)="editOrder(order)"
+                for="btnradio2"
+                >Editar</label
+              >
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+

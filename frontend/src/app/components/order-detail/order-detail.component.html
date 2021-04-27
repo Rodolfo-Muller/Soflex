@@ -1,112 +1,43 @@
-<!-- Modal Create New Order -->
-<div class="container-xxl">
-  <!-- Button trigger modal -->
-  <button
-    type="button"
-    class="btn btn-primary"
-    data-bs-toggle="modal"
-    data-bs-target="#createOrder"
-  >
-    Crear Nueva Orden
-  </button>
+<div class="container-fluid d-flex justify-content-center">
+  <div class="card bg-dark">
+    <div class="card-body">
+      <h5 class="card-title text-white">Carga del Pedido</h5>
 
-  <!-- Modal -->
-  <div
-    class="modal fade"
-    id="createOrder"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog">
-      <div class="modal-content bg-dark">
-        <div class="modal-header text-white">
-          <h3 class="modal-title" id="exampleModalLabel">Crear Nueva Orden</h3>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">
-          <!--Form-->
-          <div class="container-fluid">
-            <form #frmOrder="ngForm" (ngSubmit)="addOrder(frmOrder)">
-              <div class="input-group mb-3">
-                <span class="input-group-text" id="input-product"
-                  >Producto:</span
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Name"
-                  name="product"
-                  #product="ngModel"
-                  [(ngModel)]="orderService.selectedOrder.product"
-                />
-              </div>
-              <div class="input-group mb-3">
-                <span class="input-group-text" id="input-quantity"
-                  >Cantidad:</span
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="0"
-                  name="quantity"
-                  #quantity="ngModel"
-                  [(ngModel)]="orderService.selectedOrder.quantity"
-                />
-              </div>
+      <select class="form-select" aria-label="Default select example">
+        <option selected>Seleccionar Cliente</option>
+        <option value="1">One</option>
+      </select>
 
-              <div class="input-group mb-3">
-                <span class="input-group-text" id="input-price">Precio $:</span>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="price"
-                  #product="ngModel"
-                  [(ngModel)]="orderService.selectedOrder.price"
-                />
-              </div>
-
-              <div
-                class="modal-footer"
-                role="toolbar"
-                aria-label="Basic radio toggle button group"
-              >
-                <div class="btn-group me-3">
-                  <input
-                    type="submit"
-                    class="btn-check"
-                    name="btnsave"
-                    id="btnradio1"
-                    autocomplete="off"
-                    checked
-                  />
-                  <label class="btn btn-outline-primary"  for="btnradio1"
-                    >Guardar</label
-                  >
-                </div>
-                <div class="btn-group">
-                  <input
-                    type="cancel"
-                    class="btn-check"
-                    name="btncancel"
-                    id="btnradio2"
-                    autocomplete="off"
-                    data-bs-dismiss="modal"
-                  />
-                  <label class="btn btn-outline-danger" for="btnradio2"
-                    >Cancelar</label
-                  >
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
+      <select class="form-select" aria-label="Default select example">
+        <option selected>Seleccionar Fecha</option>
+        <option value="1">One</option>
+      </select>
+    </div>
+    <div class="BTN d-flex justify-content-center">
+      <div class="btn-group me-3">
+        <input
+          type="submit"
+          class="btn-check"
+          name="btnsave"
+          id="btnsubmit"
+          autocomplete="off"
+          checked
+        />
+        <label class="btn btn-outline-primary" for="btnsubmit">Guardar</label>
       </div>
+    
+          <a href="http://localhost:4200/pedido/grillaPedidos">
+      <div class="btn-group">
+        <input
+          type="cancel"
+          class="btn-check"
+          name="btncancel"
+          id="btncancel"
+          autocomplete="off"
+        />
+        <label class="btn btn-outline-danger" for="btncancel">Cancelar</label>
+      </div>
+          </a>
     </div>
   </div>
   <!-- Grilla de Pedidos -->
@@ -116,7 +47,6 @@
       <table class="table table-dark table-hover">
         <thead>
           <tr>
-            <th>PedidoId</th>
             <th>Producto</th>
             <th>Cantidad</th>
             <th>Precio</th>
@@ -124,125 +54,151 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let order of orders">
-            <td>{{ order.orderId }}</td>
-            <td>{{ order.product }}</td>
-            <td>{{ order.quantity }}</td>
-            <td>{{ order.price }}</td>
+          <tr *ngFor="let orderDetail of ordersDetails?.ordersDetails">
+            <td>{{ orderDetail.orderDetailId }}</td>
+            <td>{{ orderDetail.createdAt | date: "dd-MM-yyyy" }}</td>
+            <td>{{ orderDetail.client.name }}</td>
             <td>
               <div class="btn-group me-3">
-                <input
-                  type="cancel"
-                  class="btn-check"
-                  autocomplete="off"
-                           />
-                <label class="btn btn-outline-danger" (click)="deleteOrder(order)" for="btnradio2"
+                <input type="cancel" class="btn-check" autocomplete="off" />
+                <label
+                  class="btn btn-outline-danger"
+                  (click)="deleteOrder(order)"
+                  for="btnradio2"
                   >Eliminar</label
                 >
               </div>
-              
+
               <div class="btn-group">
-                <input
-                  type="cancel"
-                  class="btn-check"
-                  autocomplete="off"
-                           />
-                <label class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="editOrder(order)" for="btnradio2"
+                <input type="cancel" class="btn-check" autocomplete="off" />
+                <label
+                  class="btn btn-outline-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                  (click)="editOrder(order)"
+                  for="btnradio2"
                   >Editar</label
                 >
               </div>
-            
             </td>
           </tr>
         </tbody>
       </table>
-    </div>
-  </div>
-</div>
-<!-- Modal Editar -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      
-       <!--Form-->
-      <div class="container-fluid">
-        <form #frmOrder="ngForm" (ngSubmit)="editOrder(frmOrder)">
-          <div class="input-group mb-3">
-            <span class="input-group-text" id="input-product"
-              >Producto:</span
-            >
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Name"
-              name="product"
-              #product="ngModel"
-              [(ngModel)]="orderService.selectedOrder.product"
-            />
-          </div>
-          <div class="input-group mb-3">
-            <span class="input-group-text" id="input-quantity"
-              >Cantidad:</span
-            >
-            <input
-              type="text"
-              class="form-control"
-              placeholder="0"
-              name="quantity"
-              #quantity="ngModel"
-              [(ngModel)]="orderService.selectedOrder.quantity"
-            />
-          </div>
+      <!-- Modal Create New Order -->
+      <div class="container-xxl d-flex justify-content-center">
+        <!-- Button trigger modal -->
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#createOrder"
+        >
+          Crear Nueva Orden
+        </button>
 
-          <div class="input-group mb-3">
-            <span class="input-group-text" id="input-price">Precio $:</span>
-            <input
-              type="text"
-              class="form-control"
-              name="price"
-              #product="ngModel"
-              [(ngModel)]="orderService.selectedOrder.price"
-            />
-          </div>
+        <!-- Modal -->
+        <div
+          class="modal fade"
+          id="createOrder"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content bg-dark">
+              <div class="modal-header text-white">
+                <h3 class="modal-title" id="exampleModalLabel">
+                  Crear Nueva Orden
+                </h3>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <!--Form-->
+                <div class="container-fluid">
+                  <form #frmOrder="ngForm" (ngSubmit)="addOrder(frmOrder)">
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" id="input-product"
+                        >Producto:</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Name"
+                        name="product"
+                        #product="ngModel"
+                        [(ngModel)]="orderService.selectedOrder.product"
+                      />
+                    </div>
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" id="input-quantity"
+                        >Cantidad:</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="0"
+                        name="quantity"
+                        #quantity="ngModel"
+                        [(ngModel)]="orderService.selectedOrder.quantity"
+                      />
+                    </div>
 
-          <div
-            class="modal-footer"
-            role="toolbar"
-            aria-label="Basic radio toggle button group"
-          >
-            <div class="btn-group me-3">
-              <input
-                type="submit"
-                class="btn-check"
-                name="btnsave"
-                id="btnsubmit"
-                autocomplete="off"
-                checked
-              />
-              <label class="btn btn-outline-primary"  data-bs-dismiss="modal" for="btnsubmit"
-                >Guardar</label
-              >
-            </div>
-            <div class="btn-group">
-              <input
-                type="cancel"
-                class="btn-check"
-                name="btncancel"
-                id="btncancel"
-                autocomplete="off"
-                data-bs-dismiss="modal"
-              />
-              <label class="btn btn-outline-danger" for="btncancel"
-                >Cancelar</label
-              >
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" id="input-price"
+                        >Precio $:</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="price"
+                        #product="ngModel"
+                        [(ngModel)]="orderService.selectedOrder.price"
+                      />
+                    </div>
+
+                    <div
+                      class="modal-footer"
+                      role="toolbar"
+                      aria-label="Basic radio toggle button group"
+                    >
+                      <div class="btn-group me-3">
+                        <input
+                          type="submit"
+                          class="btn-check"
+                          name="btnsave"
+                          id="btnradio1"
+                          autocomplete="off"
+                          checked
+                        />
+                        <label class="btn btn-outline-primary" for="btnradio1"
+                          >Guardar</label
+                        >
+                      </div>
+                      <div class="btn-group">
+                        <input
+                          type="cancel"
+                          class="btn-check"
+                          name="btncancel"
+                          id="btnradio2"
+                          autocomplete="off"
+                          data-bs-dismiss="modal"
+                        />
+                        <label class="btn btn-outline-danger" for="btnradio2"
+                          >Cancelar</label
+                        >
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
             </div>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   </div>

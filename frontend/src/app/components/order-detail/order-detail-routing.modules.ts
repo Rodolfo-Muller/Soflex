@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { OrderDetailComponent } from './order-detail.component';
 
 const routes: Routes = [
-  { path: 'create', component: OrderDetailComponent },
+  { path: 'formulario', component: OrderDetailComponent },
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
